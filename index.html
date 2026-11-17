@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>اطلب من شي إن بأرخص الأسعار</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink:#121212;
+    --paper:#FFFFFF;
+    --soft:#FBF6F2;
+    --blush:#F9E3E8;
+    --gold:#C9A24B;
+    --gold-dark:#A8832F;
+    --line:#E8E0D8;
+    --muted:#6D6660;
+    --danger:#C0392B;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+  html{scroll-behavior:smooth}
+  body{
+    font-family:'Tajawal','Segoe UI',Tahoma,Arial,sans-serif;
+    background:var(--soft);
+    color:var(--ink);
+    line-height:1.7;
+    padding-bottom:calc(76px + env(safe-area-inset-bottom));
+  }
+  .wrap{max-width:560px;margin:0 auto;padding:0 16px}
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:var(--ink);
+    color:#fff;
+    padding:calc(40px + env(safe-area-inset-top)) 0 64px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+  }
+  .hero::before{
+    content:"";position:absolute;inset:auto -20% -60% -20%;height:90%;
+    background:radial-gradient(closest-side,rgba(201,162,75,.35),transparent);
+    pointer-events:none;
+  }
+  .badge{
+    display:inline-block;
+    border:1px solid var(--gold);
+    color:var(--gold);
+    border-radius:999px;
+    padding:4px 16px;
+    font-size:13px;font-weight:700;
+    margin-bottom:18px;
+    letter-spacing:.3px;
+  }
+  .hero h1{
+    font-size:clamp(26px,7.4vw,36px);
+    line-height:1.5;
+    font-weight:800;
+    position:relative;
+  }
+  .hero h1 span{color:var(--gold)}
+  .hero p{
+    margin-top:14px;
+    color:#D8D2CB;
+    font-size:16px;
+    position:relative;
+  }
+  .chips{
+    display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
+    margin-top:22px;position:relative;
+  }
+  .chips li{
+    list-style:none;
+    background:rgba(255,255,255,.08);
+    border:1px solid rgba(255,255,255,.14);
+    border-radius:999px;
+    padding:5px 14px;
+    font-size:13px;
+  }
+
+  /* ---------- Form card ---------- */
+  .card{
+    background:var(--paper);
+    border-radius:22px;
+    box-shadow:0 18px 40px -18px rgba(18,18,18,.28);
+    padding:22px 18px 24px;
+    margin-top:-36px;
+    position:relative;
+  }
+  .section-title{
+    font-size:19px;font-weight:800;
+    display:flex;align-items:center;gap:8px;
+    margin-bottom:14px;
+  }
+  .section-title::after{
+    content:"";flex:1;height:1px;background:var(--line);
+  }
+
+  .product{
+    border:1.5px solid var(--line);
+    border-radius:16px;
+    padding:14px 14px 4px;
+    margin-bottom:14px;
+    background:#FFFDFB;
+    animation:pop .25s ease;
+  }
+  @keyframes pop{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+  .product-head{
+    display:flex;align-items:center;justify-content:space-between;
+    margin-bottom:10px;
+  }
+  .product-head strong{
+    background:var(--ink);color:var(--gold);
+    border-radius:999px;padding:2px 14px;font-size:14px;
+  }
+  .remove{
+    background:none;border:none;color:var(--danger);
+    font:inherit;font-size:14px;font-weight:700;
+    cursor:pointer;padding:8px 4px;
+  }
+
+  .field{margin-bottom:14px}
+  .field label{
+    display:block;font-weight:700;font-size:14.5px;margin-bottom:5px;
+  }
+  .field label em{color:var(--danger);font-style:normal;margin-inline-start:3px}
+  .field label small{color:var(--muted);font-weight:500}
+  .field input{
+    width:100%;
+    min-height:50px;
+    border:1.5px solid var(--line);
+    border-radius:12px;
+    padding:10px 14px;
+    font:inherit;font-size:16px;
+    background:#fff;color:var(--ink);
+    transition:border-color .15s, box-shadow .15s;
+  }
+  .field input::placeholder{color:#A9A29B}
+  .field input:focus{
+    outline:none;border-color:var(--gold);
+    box-shadow:0 0 0 4px rgba(201,162,75,.18);
+  }
+  .field input:user-invalid{border-color:var(--danger)}
+  .ltr{direction:ltr;text-align:left}
+  .ltr::placeholder{text-align:right}
+  .phone-box{display:flex;direction:ltr;align-items:stretch;border:1.5px solid var(--line);border-radius:12px;overflow:hidden;background:#fff}
+  .phone-box:focus-within{border-color:var(--gold);box-shadow:0 0 0 4px rgba(201,162,75,.18)}
+  .phone-box .cc{display:grid;place-items:center;padding:0 14px;background:var(--blush);font-weight:800;font-size:16px;min-height:50px}
+  .phone-box input{border:none !important;border-radius:0 !important;box-shadow:none !important;min-height:50px}
+
+  .row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media (max-width:380px){.row{grid-template-columns:1fr}}
+
+  .qty{
+    display:flex;align-items:stretch;
+    border:1.5px solid var(--line);border-radius:12px;overflow:hidden;
+    background:#fff;min-height:50px;
+  }
+  .qty button{
+    width:48px;border:none;background:var(--blush);
+    font-size:22px;font-weight:800;color:var(--ink);cursor:pointer;
+  }
+  .qty button:active{background:var(--gold);color:#fff}
+  .qty input{
+    border:none;border-radius:0;text-align:center;
+    min-height:0;padding:0;width:100%;
+    box-shadow:none !important;
+  }
+
+  .add{
+    width:100%;
+    min-height:50px;
+    border:2px dashed var(--gold);
+    background:transparent;
+    color:var(--gold-dark);
+    border-radius:14px;
+    font:inherit;font-size:16px;font-weight:800;
+    cursor:pointer;
+    margin-bottom:24px;
+  }
+  .add:hover{background:rgba(201,162,75,.08)}
+
+  .code-status{font-size:13.5px;font-weight:700;margin-top:6px;min-height:20px}
+  .code-status.ok{color:#1E8E4E}
+
+  .submit{
+    width:100%;
+    min-height:60px;
+    border:none;
+    border-radius:16px;
+    background:linear-gradient(135deg,#1A1A1A,#000);
+    color:var(--gold);
+    font:inherit;font-size:20px;font-weight:800;
+    cursor:pointer;
+    box-shadow:0 12px 24px -10px rgba(0,0,0,.6);
+    transition:transform .12s;
+    margin-top:6px;
+  }
+  .submit:active{transform:scale(.98)}
+  .note{
+    text-align:center;color:var(--muted);font-size:13px;margin-top:12px;
+  }
+
+  .steps{
+    display:grid;gap:10px;margin:26px 0 8px;
+  }
+  .step{
+    display:flex;gap:12px;align-items:center;
+    background:var(--paper);border:1px solid var(--line);
+    border-radius:14px;padding:12px 14px;font-size:15px;
+  }
+  .step b{
+    flex:none;width:32px;height:32px;border-radius:50%;
+    background:var(--blush);color:var(--ink);
+    display:grid;place-items:center;font-weight:800;
+  }
+
+  /* ---------- Bottom promo bar ---------- */
+  .promo{
+    position:fixed;left:0;right:0;bottom:0;z-index:50;
+    background:linear-gradient(90deg,var(--gold-dark),var(--gold),var(--gold-dark));
+    color:#111;text-align:center;font-weight:800;font-size:15px;
+    padding:14px 14px calc(14px + env(safe-area-inset-bottom));
+    box-shadow:0 -6px 20px rgba(0,0,0,.18);
+  }
+</style>
+</head>
+<body>
+
+<header class="hero">
+  <div class="wrap">
+    <span class="badge">وسيط طلبات شي إن</span>
+    <h1>اطلب من شي إن <span>بأرخص الأسعار</span> وخصومات حقيقية! 🛍️✨</h1>
+    <p>حط روابط المنتجات وتفاصيلها ورقمك، وراح نتواصل معك فوراً لتأكيد طلبك.</p>
+    <ul class="chips">
+      <li>✔ أسعار منافسة</li>
+      <li>✔ خصومات حقيقية</li>
+      <li>✔ رد سريع على واتساب</li>
+    </ul>
+  </div>
+</header>
+
+<main class="wrap">
+  <form class="card" id="orderForm" novalidate>
+    <h2 class="section-title">🛒 المنتجات</h2>
+
+    <div id="products"></div>
+
+    <button type="button" class="add" id="addBtn">إضافة منتج آخر +</button>
+
+    <h2 class="section-title">📱 بيانات التواصل</h2>
+
+    <div class="field">
+      <label for="phone">رقم الواتساب للتواصل <em>*</em></label>
+      <div class="phone-box">
+        <span class="cc">+965</span>
+        <input class="ltr" type="tel" id="phone" inputmode="numeric" autocomplete="tel-national"
+               placeholder="XXXXXXXX" maxlength="13" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="code">كود الخصم أو اسم الشخص اللي دعاك للقروب <small>(إن وجد)</small></label>
+      <input type="text" id="code" placeholder="اختياري">
+      <div class="code-status" id="codeStatus"></div>
+    </div>
+
+    <button type="submit" class="submit">إرسال الطلب الآن 🚀</button>
+    <p class="note">راح يفتح معك واتساب برسالة جاهزة، بس اضغط إرسال.</p>
+  </form>
+
+  <section class="steps" aria-label="طريقة الطلب">
+    <div class="step"><b>1</b><span>انسخ رابط المنتج من تطبيق شي إن</span></div>
+    <div class="step"><b>2</b><span>اكتب اللون والمقاس والعدد</span></div>
+    <div class="step"><b>3</b><span>اضغط إرسال وراح نتواصل معك فوراً</span></div>
+  </section>
+</main>
+
+<div class="promo">🎁 خصم 10% فوري عند دعوة 10 أشخاص للقروب!</div>
+
+<script>
+  // ====== غيّر رقمك وكود الخصم هنا ======
+  const WHATSAPP_NUMBER = "96565072090";
+  const DISCOUNT_CODE = "Order 10";
+  // =====================================
+
+  const productsEl = document.getElementById('products');
+  const addBtn = document.getElementById('addBtn');
+  const form = document.getElementById('orderForm');
+
+  function productTemplate() {
+    const div = document.createElement('div');
+    div.className = 'product';
+    div.innerHTML = `
+      <div class="product-head">
+        <strong class="pnum"></strong>
+        <button type="button" class="remove">حذف ✕</button>
+      </div>
+      <div class="field">
+        <label>رابط المنتج من شي إن <em>*</em></label>
+        <input class="ltr p-link" type="text" inputmode="url" autocomplete="off"
+               placeholder="https://shein.top/..." required>
+      </div>
+      <div class="row">
+        <div class="field">
+          <label>اللون المطلوب <em>*</em></label>
+          <input class="p-color" type="text" placeholder="أسود / أبيض / حسب الصورة" required>
+        </div>
+        <div class="field">
+          <label>المقاس المطلوب <em>*</em></label>
+          <input class="p-size" type="text" list="sizes" placeholder="S / M / L / XL / مقاس الحذاء" required>
+        </div>
+      </div>
+      <div class="field">
+        <label>عدد القطع <em>*</em></label>
+        <div class="qty">
+          <button type="button" class="minus" aria-label="إنقاص">−</button>
+          <input class="p-qty" type="number" min="1" max="99" value="1" inputmode="numeric" required>
+          <button type="button" class="plus" aria-label="زيادة">+</button>
+        </div>
+      </div>`;
+
+    const qty = div.querySelector('.p-qty');
+    div.querySelector('.minus').addEventListener('click', () => {
+      qty.value = Math.max(1, (parseInt(qty.value) || 1) - 1);
+    });
+    div.querySelector('.plus').addEventListener('click', () => {
+      qty.value = Math.min(99, (parseInt(qty.value) || 1) + 1);
+    });
+    div.querySelector('.remove').addEventListener('click', () => {
+      div.remove();
+      renumber();
+    });
+    return div;
+  }
+
+  function renumber() {
+    const items = productsEl.querySelectorAll('.product');
+    items.forEach((el, i) => {
+      el.querySelector('.pnum').textContent = 'منتج ' + (i + 1);
+      el.querySelector('.remove').style.display = items.length > 1 ? '' : 'none';
+    });
+  }
+
+  function addProduct(scroll) {
+    const el = productTemplate();
+    productsEl.appendChild(el);
+    renumber();
+    if (scroll) el.scrollIntoView({behavior: 'smooth', block: 'center'});
+  }
+
+  addBtn.addEventListener('click', () => addProduct(true));
+
+  const norm = v => v.replace(/\s+/g, '').toLowerCase();
+  function isValidCode(v) { return norm(v) === norm(DISCOUNT_CODE); }
+
+  const codeInput = document.getElementById('code');
+  const codeStatus = document.getElementById('codeStatus');
+  codeInput.addEventListener('input', () => {
+    if (isValidCode(codeInput.value)) {
+      codeStatus.textContent = '✅ تم تفعيل كود الخصم';
+      codeStatus.className = 'code-status ok';
+    } else {
+      codeStatus.textContent = '';
+      codeStatus.className = 'code-status';
+    }
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    const phoneInput = document.getElementById('phone');
+    let digits = phoneInput.value.replace(/[^\d]/g, '').replace(/^00/, '');
+    if (digits.startsWith('965') && digits.length === 11) digits = digits.slice(3);
+    const phone = '965' + digits;
+    phoneInput.setCustomValidity(digits.length === 8 ? '' : 'اكتب رقمك من 8 أرقام بدون 965');
+
+    if (!form.reportValidity()) return;
+
+    const code = codeInput.value.trim();
+    const items = [...productsEl.querySelectorAll('.product')];
+
+    let msg = '🛍️ *طلب جديد من شي إن*\n';
+    msg += '━━━━━━━━━━━━━━\n';
+
+    items.forEach((el, i) => {
+      msg += `\n*منتج ${i + 1}*\n`;
+      msg += `🔗 الرابط: ${el.querySelector('.p-link').value.trim()}\n`;
+      msg += `🎨 اللون: ${el.querySelector('.p-color').value.trim()}\n`;
+      msg += `📏 المقاس: ${el.querySelector('.p-size').value.trim()}\n`;
+      msg += `🔢 العدد: ${el.querySelector('.p-qty').value}\n`;
+    });
+
+    msg += '\n━━━━━━━━━━━━━━\n';
+    msg += `📱 رقم العميل: ${phone}\n`;
+    msg += `🎟️ كود الخصم / الداعي: ${code || 'لا يوجد'}${isValidCode(code) ? ' ✅ (كود صحيح)' : ''}\n`;
+    msg += `📦 عدد المنتجات: ${items.length}`;
+
+    const url = 'https://wa.me/' + WHATSAPP_NUMBER + '?text=' + encodeURIComponent(msg);
+    window.location.href = url;
+  });
+
+  document.getElementById('phone').addEventListener('input', function () {
+    this.setCustomValidity('');
+  });
+
+  addProduct(false);
+</script>
+
+<datalist id="sizes">
+  <option value="XS"><option value="S"><option value="M"><option value="L">
+  <option value="XL"><option value="XXL"><option value="مقاس واحد">
+</datalist>
+
+</body>
+</html>
